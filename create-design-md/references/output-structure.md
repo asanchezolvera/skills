@@ -76,12 +76,16 @@ Organize colors into these sub-groups, giving each color a descriptive name (not
   - Success: Tailwind Green palette
   - Warning: Tailwind Yellow palette
     For each palette, include a role mapping table showing which steps map to text, background, and border roles on both light and dark surfaces. Also include Focus Ring blue (blue-500, `#3b82f6`) for accessibility focus states.
-- **Surface & Background**: Built from the selected Tailwind neutral palette. Map specific steps to roles:
-  - Page background (50 or 100)
-  - Card/elevated surface (50 or white)
-  - Button/interactive surface (200)
-  - Dark surface (800)
-  - Deep dark / dark theme bg (900 or 950)
+- **Surface & Background**: The default page background is **pure white (`#ffffff`)** unless there's a specific reason to deviate (e.g., a dark-by-default brand, an editorial brand whose entire aesthetic depends on a tinted page, or the user explicitly asks for a tinted background during the interview). White as the page surface keeps content legible, lets the neutral palette do its job in cards/borders/text, and makes the brand colors land cleanly. Use the selected Tailwind neutral palette for everything _adjacent_ to the page surface — cards, dividers, recessed sections, etc. Map specific steps to roles:
+  - Page background — **`#ffffff`** (white) by default
+  - Card/elevated surface — `neutral-50` for visible-on-white separation, OR `#ffffff` itself with a `neutral-200` border (pick whichever fits the brand's depth philosophy)
+  - Recessed/secondary surface — `neutral-50` or `neutral-100` (the level below page when page is white)
+  - Button/interactive surface — `neutral-100` or `neutral-200`
+  - Dark surface — `neutral-800`
+  - Deep dark / dark theme bg — `neutral-900` or `neutral-950`
+
+  If the brand's vibe genuinely calls for a tinted page background (warm editorial, moody dark-mode-first, etc.), justify the choice in 1–2 sentences in the prose and use a specific neutral step rather than defaulting. Don't tint the page just because the neutral palette has a nice 50.
+
 - **Neutrals & Text**: Map neutral palette steps to text hierarchy:
   - Primary text (900 or 950)
   - Secondary text (600 or 700)

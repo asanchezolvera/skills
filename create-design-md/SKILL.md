@@ -182,7 +182,7 @@ Border radius lives in Shapes, NOT in Layout. This is the most common slip-up �
 
 ### Standardized tokens (do NOT customize per-brand)
 
-All Golden Hippo brands share the same values for these tokens. Read them from the reference files and include them verbatim in every DESIGN.md (in both the YAML and the prose):
+All Golden Hippo Labs brands share the same values for these tokens. Read them from the reference files and include them verbatim in every DESIGN.md (in both the YAML and the prose):
 
 - **Semantic color palettes**: Error/Danger uses Tailwind Red, Info uses Tailwind Blue, Success uses Tailwind Green, Warning uses Tailwind Yellow. Include the full 50–950 scale for each, with role mappings (text, background, border) for both light and dark surfaces. From `references/semantic-colors.md`.
 - **Spacing scale**: The full scale from 0px to 1920px. From `references/layout-tokens.md`.
@@ -198,6 +198,8 @@ These standardized values replace any brand-specific derivation for those sectio
 **Use the standardized semantic palettes.** Don't derive custom error/success/warning colors. All brands use the same Tailwind-based semantic palettes from `references/semantic-colors.md`. Include them in the "Secondary & Accent" color section with their full step ranges and role mappings.
 
 **Map the neutral palette to real roles.** The selected Tailwind palette provides the full step range (50–950). Map specific steps to concrete surface, text, and border roles. Use the personality notes from the reference to inform how you describe these neutrals.
+
+**Default the page background to white.** The `surface` alias defaults to `#ffffff`, not `neutral-50`. White is the correct page background for nearly every brand — it keeps content legible, lets the brand colors land cleanly, and reserves the neutral palette for cards, dividers, and recessed surfaces _on top of_ the page. Only deviate when the brand genuinely calls for a tinted page (warm editorial, dark-by-default, moody/atmospheric brands where the tint _is_ the aesthetic). When deviating, justify the choice in the prose. Never tint the page just because the neutral palette has a nice 50.
 
 **Typography hierarchy must be complete.** Include every level from Display (largest) to Micro (smallest), plus Code. Sizes form a coherent scale. Provide token name, font, px, rem, weight, line-height, letter-spacing, and contextual notes for each level. Every level in the prose table must have a matching entry in the YAML `typography` map.
 

@@ -80,13 +80,16 @@ colors:
   primary: "{colors.primary-500}"      # the anchor
   secondary: "{colors.secondary-500}"
   tertiary: "{colors.tertiary-500}"
-  surface: "{colors.neutral-50}"
+  surface: "#ffffff"                   # page background — white by default
+  surface-raised: "{colors.neutral-50}" # cards / elevated surfaces sitting on the page
   on-surface: "{colors.neutral-900}"
   border: "{colors.neutral-200}"
   focus-ring: "#3b82f6"
 ```
 
-The `primary` / `secondary` / `tertiary` / `surface` / `on-surface` aliases are the names the spec recommends. Keeping both the numbered scale AND the semantic aliases means component definitions can use clean references like `{colors.primary}` while exports still get the full palette.
+The `surface` alias defaults to `#ffffff` (pure white) rather than `neutral-50`. White is the right page background for almost every brand — it keeps content legible, lets the brand colors land cleanly, and reserves the neutral palette for cards, borders, and recessed surfaces _adjacent_ to the page. Override only when the brand genuinely calls for it (warm editorial, dark-by-default, etc.).
+
+If the brand uses a tinted page background, override `surface` to point at the appropriate neutral step (e.g., `surface: "{colors.neutral-50}"`) and document the rationale in the Color Palette prose section.
 
 ## Typography
 
@@ -236,18 +239,18 @@ components:
     padding: 12px 24px
 
   card:
-    backgroundColor: "{colors.surface}"
+    backgroundColor: "{colors.surface-raised}"
     rounded: "{rounded.lg}"
     padding: 24px
 
   input:
-    backgroundColor: "{colors.neutral-50}"
+    backgroundColor: "{colors.surface}"
     textColor: "{colors.neutral-900}"
     rounded: "{rounded.md}"
     padding: 12px 16px
     height: 44px
   input-focus:
-    backgroundColor: "{colors.neutral-50}"
+    backgroundColor: "{colors.surface}"
 ```
 
 State variants (`-hover`, `-active`, `-focus`, `-disabled`) live as separate component entries with the related key naming convention. The linter recognizes this pattern.
