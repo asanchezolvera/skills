@@ -175,14 +175,14 @@ Sections appear in this canonical order to pass the spec's `section-order` lint 
 6. Shapes (spec: Shapes — NEW, split out from Layout)
 7. Component Stylings (spec: Components)
 8. Do's and Don'ts
-9. Responsive Behavior (Paravel extension)
-10. Agent Prompt Guide (Paravel extension)
+9. Responsive Behavior (Golden Hippo extension)
+10. Agent Prompt Guide (Golden Hippo extension)
 
 Border radius lives in Shapes, NOT in Layout. This is the most common slip-up — keep Layout focused on spacing and grid.
 
 ### Standardized tokens (do NOT customize per-brand)
 
-All Paravel Labs brands share the same values for these tokens. Read them from the reference files and include them verbatim in every DESIGN.md (in both the YAML and the prose):
+All Golden Hippo brands share the same values for these tokens. Read them from the reference files and include them verbatim in every DESIGN.md (in both the YAML and the prose):
 
 - **Semantic color palettes**: Error/Danger uses Tailwind Red, Info uses Tailwind Blue, Success uses Tailwind Green, Warning uses Tailwind Yellow. Include the full 50–950 scale for each, with role mappings (text, background, border) for both light and dark surfaces. From `references/semantic-colors.md`.
 - **Spacing scale**: The full scale from 0px to 1920px. From `references/layout-tokens.md`.
