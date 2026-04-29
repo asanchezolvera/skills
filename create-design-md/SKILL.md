@@ -24,6 +24,7 @@ This is a plain conversational question — no buttons needed. The answer inform
 Ask the user for their three brand colors as hex codes. Frame it clearly:
 
 > I need three hex codes from you:
+>
 > - **Primary** — your main brand color, used for CTAs and key brand moments
 > - **Secondary** — a supporting color for accents, secondary actions, hover states
 > - **Tertiary** — a third color for variety, illustrations, or subtle highlights
@@ -32,21 +33,43 @@ If the user provides fewer than three, ask for the remaining ones. If they're un
 
 ### Step 3: Neutral Palette
 
-Use `ask_user_input` with a `single_select` question to let the user pick from Tailwind's five default neutral palettes:
+Tailwind ships nine default neutral palettes. The picker tool caps at 4 options, so this is a two-step decision: first pick the _family_ (classic vs tinted), then pick the specific palette within it.
+
+**Step 3a** — `ask_user_input` with `single_select`:
+
+> Two families of neutrals to choose from:
+>
+> - **Classic** — Stone, Gray, Neutral, Zinc, Slate (the traditional five; lower commitment, broader compatibility)
+> - **Tinted (v4.2)** — Taupe, Mauve, Mist, Olive (subtle hue lean; more character, more opinion)
+
+Use the personality notes below to give the user context for the two families. If the brand description from Step 1 strongly suggests one family (e.g., a wellness brand → tinted/Mist; a developer tool → classic/Zinc), surface a recommendation but let the user override.
+
+**Step 3b** — `ask_user_input` with `single_select`, options depend on Step 3a:
+
+If the user picked **Classic**, offer:
 
 - **Stone** — warm, earthy, sandy undertone (pairs well with warm brand colors)
 - **Gray** — balanced, faintly cool, the most versatile
 - **Neutral** — true neutral, no undertone, stays invisible behind brand colors
 - **Zinc** — cool, metallic, blue-gray undertone (modern/tech feel)
-- **Slate** — the coolest, distinctly blue-toned (editorial/polished feel)
 
-Include a brief personality note for each option so the user can make an informed choice. After they select, read the full palette values from `references/tailwind-neutrals.md`.
+If the user picked **Classic** and none of the above feels right after seeing the options, follow up conversationally and offer **Slate** as a fifth option (the coolest, distinctly blue-toned, editorial feel). The 4-option cap means Slate gets surfaced via follow-up rather than fitting in the initial picker.
+
+If the user picked **Tinted**, offer:
+
+- **Taupe** — warm red-brown lean (refined, gallery/fashion energy; softer than Stone)
+- **Mauve** — subtle violet-pink lean (moody, editorial; pairs with purples)
+- **Mist** — cool blue-cyan lean (calm, atmospheric; healthcare/wellness/productivity)
+- **Olive** — yellow-green lean (earthy, natural; muted-green brands)
+
+After the user selects, read the full palette values from `references/tailwind-neutrals.md`.
 
 ### Step 4: Typography
 
 Ask the user about their font preferences using `ask_user_input`:
 
 **Question 1** (single_select): What kind of headline font?
+
 - Serif (classic, editorial, authoritative)
 - Sans-serif (clean, modern, approachable)
 - Monospace (technical, developer-focused)
@@ -55,6 +78,7 @@ Ask the user about their font preferences using `ask_user_input`:
 If they pick "I have a specific font in mind" — ask them to name it in a follow-up conversational question.
 
 **Question 2** (single_select): What about body/UI text?
+
 - Same family as headlines
 - Sans-serif (if headlines are serif)
 - I have a specific font in mind
@@ -62,6 +86,7 @@ If they pick "I have a specific font in mind" — ask them to name it in a follo
 Again, follow up conversationally if they have a specific font.
 
 **Question 3** (single_select): Code font preference?
+
 - System monospace (Menlo, Consolas, etc.)
 - JetBrains Mono
 - Fira Code
@@ -87,6 +112,7 @@ These selections influence the writing tone of Section 1 (Visual Theme), the sha
 ### Step 6: Confirm & Generate
 
 Summarize back what you've collected:
+
 - Brand description
 - Primary / Secondary / Tertiary colors (with hex)
 - Neutral palette choice
@@ -100,6 +126,7 @@ Ask the user to confirm or adjust anything before generating.
 ## Generation
 
 Once confirmed, read these reference files before generating:
+
 - `references/output-structure.md` — the 10-section prose template, in canonical spec order
 - `references/yaml-frontmatter.md` — the YAML front matter token schema and component property rules
 - `references/tailwind-neutrals.md` — neutral palette hex values
