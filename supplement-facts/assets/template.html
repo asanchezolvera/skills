@@ -1,0 +1,86 @@
+<!-- ==========================================================================
+     Canonical Supplement Facts markup. Reproduce this structure exactly;
+     swap in the label's real data.
+
+     The <style> block is the verbatim contents of
+     assets/supplement-facts.css, emitted once ahead of the markup so each
+     block is self-contained for copy/paste. (For several labels on one page,
+     include the <style> once and paste only the .supp-facts markup after.)
+
+     Structure notes:
+       - Title lives in <caption> (this names the table for screen readers).
+       - Serving Size / Servings Per Container are <thead> header rows.
+       - The empty name-column header carries visually-hidden "Nutrient" text.
+       - Amounts and % Daily Values are right-aligned and bold.
+       - A named/proprietary blend is ONE row: bold blend name + an inline
+         component list in the same name cell (not separate sub-rows). Heavy
+         5px rules bracket the blend section.
+       - Other Ingredients / Contains / disclaimer are <p> AFTER </table>,
+         never table rows.
+     ========================================================================== -->
+
+<style>
+/* paste the FULL, unmodified contents of assets/supplement-facts.css here */
+</style>
+
+<div class="supp-facts">
+  <div class="supp-facts__panel">
+    <table class="supp-facts__table">
+      <caption class="supp-facts__title">Supplement Facts</caption>
+
+      <colgroup>
+        <col style="width:57%"><col style="width:25%"><col style="width:18%">
+      </colgroup>
+
+      <thead>
+        <tr class="supp-facts__serving">
+          <th colspan="3" scope="colgroup"><strong>Serving Size:</strong> 1 Scoop (4 g)</th>
+        </tr>
+        <tr class="supp-facts__serving supp-facts__serving--last">
+          <th colspan="3" scope="colgroup"><strong>Servings Per Container:</strong> 30</th>
+        </tr>
+        <tr class="supp-facts__colhead">
+          <th scope="col" class="supp-facts__namehead"><span class="supp-facts__sr-only">Nutrient</span></th>
+          <th scope="col" class="supp-facts__amount">Amount Per Serving</th>
+          <th scope="col" class="supp-facts__dv">% Daily Value</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr class="supp-facts__row">
+          <th scope="row">Vitamin C (Ascorbic Acid)</th>
+          <td class="supp-facts__amount">90 mg</td>
+          <td class="supp-facts__dv">100%</td>
+        </tr>
+        <tr class="supp-facts__row">
+          <th scope="row">Ashwagandha Root Extract <span style="font-weight:400">(<em>Withania somnifera</em>) (Root)</span></th>
+          <td class="supp-facts__amount">125 mg</td>
+          <td class="supp-facts__dv">&dagger;</td>
+        </tr>
+
+        <tr class="supp-facts__row supp-facts__row--blend supp-facts__row--rule-top supp-facts__row--last">
+          <th scope="row">
+            <span class="supp-facts__blend-name">Probiotic Blend</span>
+            <span class="supp-facts__blend-list"><em>Lactobacillus gasseri</em> UALg-05&trade;, <em>Lactobacillus plantarum</em> UALp-05&trade;</span>
+          </th>
+          <td class="supp-facts__amount">83 mg<br><span class="supp-facts__value-note">Total Cultures</span><br>12 Billion CFU**</td>
+          <td class="supp-facts__dv">&dagger;</td>
+        </tr>
+      </tbody>
+
+      <tfoot>
+        <tr class="supp-facts__foot">
+          <td colspan="3">
+            <p>&Dagger; Percent Daily Values (DV) are based on a 2,000 calorie diet.</p>
+            <p>&dagger; Daily Value (DV) not established.</p>
+            <p>** At time of manufacture.</p>
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+
+  <p class="supp-facts__other"><strong>Other Ingredients:</strong> Sorbitol, Natural Flavoring, Silica, Stevia.</p>
+  <p class="supp-facts__allergen"><strong>Contains:</strong> Soy.</p>
+  <p class="supp-facts__disclaimer">These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease.</p>
+</div>

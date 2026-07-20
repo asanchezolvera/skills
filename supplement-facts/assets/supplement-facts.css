@@ -1,0 +1,192 @@
+/* ==========================================================================
+   Supplement Facts — canonical scoped stylesheet
+   --------------------------------------------------------------------------
+   The SINGLE source of truth for how every generated label looks. Reproduce
+   it verbatim; per-label restyling is what breaks cross-label consistency.
+
+   - Scoped entirely under .supp-facts, so it cannot collide with or be
+     overridden by the host page's global CSS (safe for Builder.io / anywhere).
+   - Wide, fluid web treatment: fills its container up to a readable cap, with
+     clamp()-based type that scales smoothly from phone to desktop.
+   - Faithful to 21 CFR 101.36 structure: heavy box, "Supplement Facts" as the
+     largest type, serving block, Amount Per Serving / % Daily Value columns,
+     rule hierarchy, footnotes, Other Ingredients outside the box.
+   - Accessible: real <table> with <caption> (names the table), scoped headers,
+     black-on-white (21:1), no color-only meaning, no JS.
+   ========================================================================== */
+
+.supp-facts {
+  --sf-ink: #000;
+  --sf-paper: #fff;
+  --sf-font: Arial, Helvetica, "Liberation Sans", system-ui, sans-serif;
+
+  --sf-box-border: 3px;
+  --sf-rule-hair: 1px;                       /* between ingredient rows        */
+  --sf-rule-thin: 2px;                       /* under the column headers       */
+  --sf-rule-heavy: 5px;                      /* section separators (blends)    */
+  --sf-rule-title: clamp(7px, 1.7vw, 12px);  /* under the title                */
+  --sf-rule-serving: clamp(4px, 1vw, 7px);   /* under the serving block        */
+
+  box-sizing: border-box;
+  display: block;
+  width: 100%;
+  max-width: 680px;
+  margin: 0 auto;
+  color: var(--sf-ink);
+  font-family: var(--sf-font);
+  font-size: clamp(12px, 2.5vw, 16px);
+  line-height: 1.2;
+  text-align: left;
+  -webkit-text-size-adjust: 100%;
+}
+
+.supp-facts *,
+.supp-facts *::before,
+.supp-facts *::after { box-sizing: inherit; }
+
+/* --- The box ------------------------------------------------------------ */
+.supp-facts__panel {
+  width: 100%;
+  padding: clamp(10px, 3vw, 18px);
+  border: var(--sf-box-border) solid var(--sf-ink);
+  background: var(--sf-paper);
+}
+
+.supp-facts__table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+  color: var(--sf-ink);
+  font: inherit;
+}
+
+.supp-facts__table th,
+.supp-facts__table td {
+  padding: 5px 4px;
+  vertical-align: top;
+  text-align: left;
+  font-weight: 400;
+  overflow-wrap: anywhere;
+}
+
+/* --- Title: the largest type on the label ------------------------------- */
+.supp-facts__title {
+  caption-side: top;
+  text-align: left;
+  margin: 0;
+  padding: 0 0 4px;
+  border-bottom: var(--sf-rule-title) solid var(--sf-ink);
+  font-size: clamp(32px, 8vw, 58px);
+  font-weight: 900;
+  line-height: 0.95;
+  letter-spacing: -0.045em;
+}
+
+/* --- Serving block ------------------------------------------------------ */
+.supp-facts__serving th {
+  font-weight: 400;
+  padding: 6px 0 2px;
+  font-size: clamp(12px, 2.7vw, 16px);
+  line-height: 1.25;
+}
+.supp-facts__serving th strong { font-weight: 700; }
+
+.supp-facts__serving--last th {
+  padding-bottom: 6px;
+  border-bottom: var(--sf-rule-serving) solid var(--sf-ink);
+}
+
+/* --- Column headers ----------------------------------------------------- */
+.supp-facts__colhead th {
+  border-bottom: var(--sf-rule-thin) solid var(--sf-ink);
+  font-size: clamp(9px, 2vw, 12px);
+  font-weight: 700;
+  line-height: 1.05;
+  vertical-align: bottom;
+  padding: 5px 4px 3px;
+}
+.supp-facts__colhead .supp-facts__amount,
+.supp-facts__colhead .supp-facts__dv { text-align: right; }
+.supp-facts__colhead .supp-facts__namehead { padding-left: 0; }
+
+/* --- Ingredient rows ---------------------------------------------------- */
+.supp-facts__row th[scope="row"] { font-weight: 700; }
+
+.supp-facts__row th,
+.supp-facts__row td { border-bottom: var(--sf-rule-hair) solid var(--sf-ink); }
+
+.supp-facts__row .supp-facts__amount,
+.supp-facts__row .supp-facts__dv {
+  font-weight: 700;
+  text-align: right;
+}
+
+/* Smaller secondary note inside a value cell (e.g. "Total Cultures"). */
+.supp-facts__row .supp-facts__value-note {
+  font-size: 0.88em;
+  font-weight: 700;
+}
+
+/* --- Proprietary / named blends ----------------------------------------- */
+/* Blend name is bold; its component list sits inline underneath, regular. */
+.supp-facts__row--blend th[scope="row"] { font-weight: 400; }
+
+.supp-facts__blend-name {
+  display: block;
+  margin-bottom: 2px;
+  font-weight: 700;
+}
+
+.supp-facts__blend-list {
+  display: block;
+  font-size: 0.88em;
+  font-weight: 400;
+  line-height: 1.25;
+}
+
+/* Heavy separators that bracket a section (e.g. the blend group). */
+.supp-facts__row--rule-top th,
+.supp-facts__row--rule-top td {
+  border-top: var(--sf-rule-heavy) solid var(--sf-ink);
+  padding-top: 7px;
+}
+.supp-facts__row--last th,
+.supp-facts__row--last td {
+  border-bottom: var(--sf-rule-heavy) solid var(--sf-ink);
+  padding-bottom: 7px;
+}
+
+/* --- Footnotes ---------------------------------------------------------- */
+.supp-facts__foot td {
+  border-bottom: 0;
+  padding: 6px 0 0;
+  font-size: clamp(9px, 2.2vw, 12px);
+  line-height: 1.25;
+}
+.supp-facts__foot p { margin: 0 0 3px; font-weight: 700; }
+.supp-facts__foot p:last-child { margin-bottom: 0; }
+
+/* --- Outside the box: Other Ingredients / allergen / disclaimer / notes --- */
+.supp-facts__other,
+.supp-facts__allergen,
+.supp-facts__disclaimer,
+.supp-facts__note {
+  margin: 8px 0 0;
+  padding: 0 2px;
+  font-family: var(--sf-font);
+  font-size: clamp(11px, 2.5vw, 14px);
+  line-height: 1.35;
+  color: var(--sf-ink);
+  overflow-wrap: anywhere;
+}
+.supp-facts__disclaimer { font-style: italic; }
+.supp-facts__note { font-size: clamp(10px, 2.2vw, 12px); }
+
+/* --- Visually-hidden (names the empty name-column header for AT) --------- */
+.supp-facts__sr-only {
+  position: absolute !important;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0);
+  white-space: nowrap; border: 0;
+}
