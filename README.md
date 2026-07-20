@@ -83,9 +83,50 @@ The skill parses a `DESIGN.md` and produces a self-contained HTML file with embe
 
 ---
 
+### [`supplement-facts`](./supplement-facts/)
+
+Turn a supplement label — supplied as raw HTML **or** as an image/photo/screenshot — into one self-contained block of semantic HTML + CSS, ready to paste onto a product page or into a CMS (e.g. Builder.io).
+
+Every label the skill produces looks identical because they all carry the same canonical scoped stylesheet, which is emitted verbatim and never restyled per label. That shared consistency is the point.
+
+**Output characteristics:**
+
+- Faithful to the FDA Supplement Facts structure (21 CFR 101.36)
+- A real accessible `<table>` — `<caption>`, `<thead>/<tbody>/<tfoot>`, `<th scope="row">` on nutrient names — no `<div>` soup
+- Responsive: fluid widths, `clamp()` type, reflows on narrow screens
+- Scoped CSS that can't collide with the host page
+- Other Ingredients, allergen ("Contains:"), and the DSHEA disclaimer rendered as paragraphs outside the panel, never as table rows
+
+**Scope:** The skill structures and styles the data it is given. It does not verify regulatory compliance, calculate %DV, or substantiate claims — it renders faithfully and flags anything the source label was missing.
+
+#### Files
+
+| File | Purpose |
+|------|---------|
+| [`assets/supplement-facts.css`](./supplement-facts/assets/supplement-facts.css) | The canonical stylesheet — single source of truth for the look, emitted verbatim |
+| [`assets/template.html`](./supplement-facts/assets/template.html) | The exact semantic markup to reproduce, with a worked example (proprietary blend, footnotes, allergen, disclaimer) |
+| [`references/fda-format.md`](./supplement-facts/references/fda-format.md) | Element ordering, footnote symbols, blends, dual-serving columns, unit handling |
+
+---
+
+### [`commit-message`](./commit-message/)
+
+Ship workflow: review changes, generate a Conventional Commits message, push, and open a PR — as a single pipeline with confirmation at each step.
+
+**Phases:**
+
+1. **Review** — `git status` + diff, plus recent commit style; checks for files that shouldn't be committed and whether the work should be split across commits
+2. **Commit** — Generates a `type(scope): subject` message (50-char subject, imperative mood, body wrapped at 72) and commits via HEREDOC
+3. **Push** — Pushes to the remote after confirmation
+4. **PR** — Opens a PR with a summary and test plan via `gh pr create`
+
+Triggers on "commit", "ship it", "push", "create PR", "review my changes", and similar. Not for branching/rebasing or code review.
+
+---
+
 ## Workflow
 
-The two skills are designed to be used in sequence:
+The two design system skills are designed to be used in sequence:
 
 ```
    create-design-md              design-system-stylesheet
